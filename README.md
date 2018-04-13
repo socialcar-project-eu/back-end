@@ -32,27 +32,30 @@ pip3 install uwsgi gunicorn
 
 
 
-# <a name="sample_data"></a> Import sample data
+# <a name="sample_data"></a> Import sample site data
 
-Download sample data from [OwnCloud](http://46.101.128.4/index.php/apps/files/?dir=%2FBackend%20Data), unzip into folder `data/collections`, and run:
+You can add the sites you want to support by inserting a corresponding entry in collection `sites` of MongoDB, in the form specified by the database schema (see `sites` in socialcar/settings.py). An example could be:
+```bash
+$ mongo socialcardb
+MongoDB shell version: 2.6.10
+connecting to: socialcardb
+> db.sites.insert(
+    {
+      "name" : "Brussels",
+      "url" : "<URL of the Route Planning service for this site>",
+      "bounding_box" : {
+          "max_lon" : 4.7736,
+          "min_lon" : 3.9908,
+          "max_lat" : 51.05,
+          "min_lat" : 50.6373
+      },
+      "price_info" : {
+          "currency" : "EUR"
+      }
+    }
+  )
+WriteResult({ "nInserted" : 1 })
 ```
-./scripts/db-init.sh <dbname>
-```
-for example `./scripts/db-init.sh socialcardb`. This will drop database `socialcardb` and for each file found in `data/collections` import its entries in a collection named based on the name of the file. Normally, this will create the collections `admins`, `stops`, `departures`, `sites`.
-
-If you only want to import a single file into database without droppping the database, you can use the `mongoimport` tool:
-
-```
-mongoimport -d <dbname> -c <collection> <file_to_import>
-```
-
-E.g.
-
-```
-mongoimport -d socialcartest -c stops data/collections/stops
-```
-
-Note that this will **not drop the collection**, just add the entries from file to the specified database and collection.
 
 
 
