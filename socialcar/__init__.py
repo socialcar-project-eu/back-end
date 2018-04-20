@@ -34,7 +34,7 @@ from socialcar.utils import str_to_json, json_to_str, remove_fields, recursively
                             objectids_to_strings, str_to_oid, oid_to_str, apply_function, \
                             km2rad, rad2km, timestamp_to_datetime, inside_bounding_box, \
                             remove_non_ascii, find_site_for_rides, waypoints_to_polyline, \
-                            haversine_formula
+                            haversine_formula, downsample_polyline
 from socialcar.fares import rail_fare, bus_fare, carpooling_fare, metro_fare, tram_fare
 from scripts.gtfs import route_type_to_text as EXTENDED_TRAVEL_MODES
 if USE_SENTRY:
@@ -431,6 +431,7 @@ def before_insert_rides(rides):
         if 'coordinates' in coordinates:
             coordinates = coordinates.replace('coordinates=', '')
             ride['polyline'] = waypoints_to_polyline(coordinates)
+        ride['polyline'] = downsample_polyline(ride['polyline'])
 
 #===============================================================================
 # before_delete_ride ()
