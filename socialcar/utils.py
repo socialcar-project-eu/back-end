@@ -381,6 +381,29 @@ def waypoints_to_polyline(waypoints):
     return poly
 
 #===============================================================================
+# downsample_polyline ()
+#===============================================================================
+def downsample_polyline(old_polyline):
+    """
+    To use this function you need to install polyline library:
+    https://pypi.python.org/pypi/polyline/
+
+    Visualize the generated polyline on the map at:
+    https://developers.google.com/maps/documentation/utilities/polylineutility
+
+    """
+    coordinate_set = polyline.decode(old_polyline)
+    if len(coordinate_set) > 10:
+        new_coordinate_set = [coordinate_set[0]]
+        for i in range(1,len(coordinate_set) - 2, int(len(coordinate_set) / 8)):
+            new_coordinate_set.append(coordinate_set[i])
+        new_coordinate_set.append(coordinate_set[-1])
+        new_polyline = polyline.encode(new_coordinate_set, 5)
+        return new_polyline
+    else:
+        return old_polyline
+
+#===============================================================================
 # generate_custom_objectid()
 #===============================================================================
 def generate_custom_objectid(s, l):
