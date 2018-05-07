@@ -154,9 +154,9 @@ Open http://127.0.0.1:5000/rest/v2/docs
 # <a name="services"></a> Services
 
 The server is based on a number of services that should run in order to operate correctly. The three core services are:
-- [Route Planning service](http://socialcargit.cloudapp.net/socialcar/route-planning)
-- [Destination Tagging service](http://socialcargit.cloudapp.net/socialcar/destination-tagging)
-- [Feedback Evaluation service](http://socialcargit.cloudapp.net/socialcar/feedback-evaluation)
+- [Route Planning service](https://github.com/socialcar-project-eu/route-planning)
+- [Destination Tagging service](https://github.com/socialcar-project-eu/destination-tagging)
+- [Feedback Evaluation service](https://github.com/socialcar-project-eu/feedback-evaluation)
 
 It also relies on [Push Messaging server](http://socialcargit.cloudapp.net/socialcar/push-messaging-server) (or FCM server) for delivery of notifications.
 
